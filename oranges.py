@@ -21,23 +21,12 @@ class Oranges(Sprite):
 
         self.speed = settings.orange_speed
 
-        self.shooting_up = False
-        self.shooting_down = False
-        self.shooting_left = False
-        self.shooting_right = False
-
     def update(self):
         """Move the bullet up the screen."""
         # Update the decimal position of the bullet.
-        if self.shooting_up:
-            self.y -= self.speed
-            # Update the rect position.
-            self.rect.y = self.y
-
-        if self.shooting_down:
-            self.y += self.speed
-            # Update the rect position.
-            self.rect.y = self.y
+        self.y -= self.speed
+        # Update the rect position.
+        self.rect.y = self.y
 
     def draw_orange(self):
         """Draw the bullet to the screen."""

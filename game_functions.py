@@ -19,8 +19,7 @@ def screen_refresh(settings, screen, dan, oranges):
     screen.fill(settings.background_colour)
 
     for orange in oranges.sprites():
-        orange.draw_oranges()
-
+        orange.draw_orange()
 
     dan.blitme()
 
