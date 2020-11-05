@@ -1,15 +1,15 @@
 import pygame
 
 
-class Harv():
+class Dan():
 
     def __init__(self, settings, screen):
 
         self.screen = screen
         self.settings = settings
 
-        # Load the chef image and get its rect.
-        self.image = pygame.image.load('images/harvey.bmp')
+        # Load the dan image and get its rect.
+        self.image = pygame.image.load('images/dan.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
@@ -26,14 +26,14 @@ class Harv():
         self.moving_down = False
 
     def update(self):
-        if self.moving_right:
-            self.center_x += self.settings.harvey_speed
-        if self.moving_left:
-            self.center_x -= self.settings.harvey_speed
-        if self.moving_up:
-            self.center_y -= self.settings.harvey_speed
-        if self.moving_down:
-            self.center_y += self.settings.harvey_speed
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.center_x += self.settings.dan_speed
+        if self.moving_left and self.rect.left > 0:
+            self.center_x -= self.settings.dan_speed
+        if self.moving_up and self.rect.top > 0:
+            self.center_y -= self.settings.dan_speed
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
+            self.center_y += self.settings.dan_speed
 
         self.rect.centerx = self.center_x
         self.rect.centery = self.center_y

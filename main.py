@@ -1,7 +1,8 @@
 import pygame
 from settings import Settings
-from harvey import Harv
+from dan import Dan
 import game_functions
+from pygame.sprite import Group
 
 pygame.init()
 
@@ -10,15 +11,18 @@ def start_game():
     # Initialize game and create a screen object.
     set_settings = Settings()
     screen = pygame.display.set_mode((set_settings.screen_width, set_settings.screen_height))
-    pygame.display.set_caption("Harvey Orange")
+    pygame.display.set_caption("Harvey Eats Oranges")
 
-    harv = Harv(set_settings, screen)
+    dan = Dan(set_settings, screen)
+
+    oranges = Group()
 
 
     while True:
-        game_functions.check_events(harv)
-        harv.update()
-        game_functions.screen_refresh(set_settings, screen, harv)
+        game_functions.check_events(set_settings, screen, dan, oranges)
+        dan.update()
+        oranges.update()
+        game_functions.screen_refresh(set_settings, screen, dan, oranges)
 
 
 
