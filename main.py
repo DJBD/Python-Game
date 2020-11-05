@@ -1,7 +1,7 @@
-import sys
 import pygame
 from settings import Settings
-from chef import Chef
+from harvey import Harv
+import game_functions
 
 pygame.init()
 
@@ -10,21 +10,19 @@ def start_game():
     # Initialize game and create a screen object.
     set_settings = Settings()
     screen = pygame.display.set_mode((set_settings.screen_width, set_settings.screen_height))
-    pygame.display.set_caption("Cookie Cutter")
+    pygame.display.set_caption("Harvey Orange")
 
-    chef = Chef(screen)
+    harv = Harv(screen)
 
 
 
     # Start the main loop for the game.
 
     while True:
-        screen.fill(set_settings.background_colour)
-        chef.blitme()
+        game_functions.check_events()
+        game_functions.screen_refresh(set_settings,screen, harv)
         # Watch for keyboard and mouse events.
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
+
 
         # Make the most recently drawn screen visible.
         pygame.display.flip()

@@ -1,13 +1,13 @@
 import pygame
 
-class Chef():
+class Harv():
 
     def __init__(self, screen):
 
         self.screen = screen
 
         # Load the chef image and get its rect.
-        self.image = pygame.image.load('images/Chef.bmp')
+        self.image = pygame.image.load('images/harvey.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
