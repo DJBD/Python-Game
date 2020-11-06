@@ -15,7 +15,7 @@ class Oranges(Sprite):
         self.screen = screen
 
         self.rect.centerx = dan.rect.centerx
-        self.rect.top = dan.rect.top
+        self.rect.centery = dan.rect.centery
 
         self.y = float(self.rect.y)
         self.x = float(self.rect.x)

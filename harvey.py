@@ -11,24 +11,41 @@ class Harvey(Sprite):
         self.image = pygame.image.load('images/harvey.bmp')
         self.rect = self.image.get_rect()
 
-        self.rect.centerx, self.rect.centery = (0, 0)
-        self.treat_x, self.treat_y = (self.settings.screen_width / 2, self.settings.screen_height / 2)
+        self.HW = settings.screen_width
+        self.HH = settings.screen_height
 
-        radians = math.atan2(self.treat_y - self.rect.centery, self.treat_x - self.rect.centery)
-        self.distance = math.hypot(self.treat_x - self.rect.centery, self.treat_y - self.rect.centery)
-        self.distance = int(self.distance)
+        self.x, self.y = self.HW, self.HH
+        self.pmx, self.pmy = self.x, self.y
+        self.dx, self.dy = 0, 0
+        self.distance = 0
+        self.speed = 3
 
-        self.dx = math.cos(radians)
-        self.dy = math.sin(radians)
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
 
     def update(self):
-        if self.distance >= 0:
+        m = pygame.mouse.get_pressed()
+        if m[0] and not self.distance:
+            mx, my = pygame.mouse.get_pos()
+
+            radians = math.atan2(my - self.pmy, mx - self.pmx)
+            self.distance = math.hypot(mx - self.pmx, my - self.pmy) / self.speed
+            self.distance = int(self.distance)
+
+            self.dx = math.cos(radians) * self.speed
+            self.dy = math.sin(radians) * self.speed
+
+            self.pmx, self.pmy = mx, my
+
+        if self.distance:
             self.distance -= 1
-            self.rect.centerx += self.dx
-            self.rect.centery += self.dy
+            self.x += self.dx
+            self.y += self.dy
+
+        self.rect.centerx = self.x
+        self.rect.centery = self.y
+
 
 
 
