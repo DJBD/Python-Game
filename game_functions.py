@@ -37,9 +37,28 @@ def check_keydown_events(event, settings, screen, dan, oranges):
     if event.key == pygame.K_DOWN:
         dan.moving_down = True
 
-    elif event.key == pygame.K_SPACE:
+    elif event.key == pygame.K_w:
         # Create a new bullet and add it to the bullets group.
         new_orange = Oranges(settings, screen, dan)
+        new_orange.direction = "UP"
+        oranges.add(new_orange)
+
+    elif event.key == pygame.K_s:
+        # Create a new bullet and add it to the bullets group.
+        new_orange = Oranges(settings, screen, dan)
+        new_orange.direction = "DOWN"
+        oranges.add(new_orange)
+
+    elif event.key == pygame.K_a:
+        # Create a new bullet and add it to the bullets group.
+        new_orange = Oranges(settings, screen, dan)
+        new_orange.direction = "LEFT"
+        oranges.add(new_orange)
+
+    elif event.key == pygame.K_d:
+        # Create a new bullet and add it to the bullets group.
+        new_orange = Oranges(settings, screen, dan)
+        new_orange.direction = "RIGHT"
         oranges.add(new_orange)
 
 

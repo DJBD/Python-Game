@@ -8,7 +8,7 @@ class Settings():
         self.background_colour = (255, 182, 193)
 
         # Dan Settings
-        self.dan_speed = 1
+        self.dan_speed = 0.5
 
         # Orange Settings
         self.orange_speed = 2
