@@ -1,5 +1,7 @@
 import sys
 import pygame
+
+import settings
 from oranges import Oranges
 
 
@@ -27,7 +29,6 @@ def screen_refresh(settings, screen, dan, oranges):
 
 
 def check_keydown_events(event, settings, screen, dan, oranges):
-
     if event.key == pygame.K_RIGHT:
         dan.moving_right = True
     if event.key == pygame.K_LEFT:
@@ -71,3 +72,12 @@ def check_keyup_events(event, dan):
         dan.moving_up = False
     if event.key == pygame.K_DOWN:
         dan.moving_down = False
+
+
+def update_oranges(oranges, settings):
+    # Update bullet positions.
+    oranges.update()
+    # Get rid of bullets that have disappeared.
+    for o in oranges.copy():
+        if o.rect.y <= 0 or o.rect.x <= 0 or o.rect.y >= settings.screen_height or o.rect.x >= settings.screen_width:
+            oranges.remove(o)
