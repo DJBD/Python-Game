@@ -1,7 +1,7 @@
 import pygame
+from pygame.sprite import Sprite
 
-
-class Dan():
+class Dan(Sprite):
 
     def __init__(self, settings, screen):
 

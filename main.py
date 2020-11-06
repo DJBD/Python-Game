@@ -1,6 +1,7 @@
 import pygame
 from settings import Settings
 from dan import Dan
+from harvey import Harvey
 import game_functions
 from pygame.sprite import Group
 
@@ -14,6 +15,7 @@ def start_game():
     pygame.display.set_caption("Harvey Eats Orwanges")
 
     dan = Dan(set_settings, screen)
+    harv = Harvey(set_settings, screen)
 
     oranges = Group()
 
@@ -21,8 +23,9 @@ def start_game():
     while True:
         game_functions.check_events(set_settings, screen, dan, oranges)
         dan.update()
+        harv.update()
         game_functions.update_oranges(oranges, set_settings)
-        game_functions.screen_refresh(set_settings, screen, dan, oranges)
+        game_functions.screen_refresh(set_settings, screen, dan, harv, oranges)
 
 
 
