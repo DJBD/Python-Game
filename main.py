@@ -23,7 +23,7 @@ def start_game():
     while True:
         game_functions.check_events(set_settings, screen, dan, oranges)
         dan.update()
-        harv.update()
+        harv.update(dan)
         game_functions.update_oranges(oranges, set_settings)
         game_functions.screen_refresh(set_settings, screen, dan, harv, oranges)
 
