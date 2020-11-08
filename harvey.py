@@ -1,6 +1,8 @@
+import random
 import pygame
 import math
 from pygame.sprite import Sprite
+
 
 class Harvey(Sprite):
     def __init__(self, settings, screen):
@@ -11,15 +13,16 @@ class Harvey(Sprite):
         self.image = pygame.image.load('images/harvey.bmp')
         self.rect = self.image.get_rect()
 
-        self.HW = settings.screen_width+100
-        self.HH = settings.screen_height+100
+        plus_x_range, y_range = random.randint(0, 1920), random.choice([1200, -500])
+        x_range, pos_y_range = random.choice([-200,2000]), random.randint(0,1080)
+
+        self.HW, self.HH = random.choice([(plus_x_range, y_range), (x_range, pos_y_range)])
 
         self.x, self.y = self.HW, self.HH
         self.pmx, self.pmy = self.x, self.y
         self.dx, self.dy = 0, 0
         self.distance = 0
-        self.speed = 1
-
+        self.speed = 2
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
@@ -44,9 +47,3 @@ class Harvey(Sprite):
 
         self.rect.centerx = self.x
         self.rect.centery = self.y
-
-
-
-
-
-
