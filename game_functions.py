@@ -86,9 +86,10 @@ def check_keyup_events(event, dan):
         dan.moving_down = False
 
 
-def update_oranges(oranges, settings):
+def update_oranges(oranges, harveys, settings):
     # Update orange positions.
     oranges.update()
+    collisions = pygame.sprite.groupcollide(oranges, harveys, True, True)
     # Get rid of oranges that have disappeared.
     for o in oranges.copy():
         if o.rect.y <= 0 or o.rect.x <= 0 or o.rect.y >= settings.screen_height or o.rect.x >= settings.screen_width:
