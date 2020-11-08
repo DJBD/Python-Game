@@ -22,9 +22,9 @@ class Harvey(Sprite):
         self.pmx, self.pmy = self.x, self.y
         self.dx, self.dy = 0, 0
         self.distance = 0
-        self.speed = 2
+        self.speed = settings.harvey_speed
 
-    def blitme(self):
+    def draw_harvey(self):
         self.screen.blit(self.image, self.rect)
 
     def update(self, dan):

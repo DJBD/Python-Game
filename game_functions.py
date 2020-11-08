@@ -2,34 +2,40 @@ import sys
 import pygame
 
 import settings
+from dan import Dan
 from oranges import Oranges
+from harvey import Harvey
 
 
-def check_events(settings, screen, dan, oranges):
+def check_events(settings, screen, dan, oranges, harveys):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
 
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, settings, screen, dan, oranges)
+            check_keydown_events(event, settings, screen, dan, oranges, harveys)
 
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, dan)
 
 
-def screen_refresh(settings, screen, dan, harv, oranges):
+def screen_refresh(settings, screen, dan, harveys, oranges):
+
     screen.fill(settings.background_colour)
 
     for orange in oranges.sprites():
         orange.draw_orange()
 
+    for harvey in harveys.sprites():
+        harvey.draw_harvey()
+
     dan.blitme()
-    harv.blitme()
+
 
     pygame.display.flip()
 
 
-def check_keydown_events(event, settings, screen, dan, oranges):
+def check_keydown_events(event, settings, screen, dan, oranges, harveys):
     if event.key == pygame.K_RIGHT:
         dan.moving_right = True
     if event.key == pygame.K_LEFT:
@@ -40,28 +46,33 @@ def check_keydown_events(event, settings, screen, dan, oranges):
         dan.moving_down = True
 
     if event.key == pygame.K_w:
-        # Create a new bullet and add it to the bullets group.
+        # Create a new orange and add it to the orange group.
         new_orange = Oranges(settings, screen, dan)
         new_orange.direction = "UP"
         oranges.add(new_orange)
 
     if event.key == pygame.K_s:
-        # Create a new bullet and add it to the bullets group.
+        # Create a new orange and add it to the orange group.
         new_orange = Oranges(settings, screen, dan)
         new_orange.direction = "DOWN"
         oranges.add(new_orange)
 
     if event.key == pygame.K_a:
-        # Create a new bullet and add it to the bullets group.
+        # Create a new orange and add it to the orange group.
         new_orange = Oranges(settings, screen, dan)
         new_orange.direction = "LEFT"
         oranges.add(new_orange)
 
     if event.key == pygame.K_d:
-        # Create a new bullet and add it to the bullets group.
+        # Create a new orange and add it to the orange group.
         new_orange = Oranges(settings, screen, dan)
         new_orange.direction = "RIGHT"
         oranges.add(new_orange)
+
+    if event.key == pygame.K_h:
+        # Create a new Harvey Object
+        new_harv = Harvey(settings, screen)
+        harveys.add(new_harv)
 
 
 def check_keyup_events(event, dan):
@@ -76,9 +87,13 @@ def check_keyup_events(event, dan):
 
 
 def update_oranges(oranges, settings):
-    # Update bullet positions.
+    # Update orange positions.
     oranges.update()
-    # Get rid of bullets that have disappeared.
+    # Get rid of oranges that have disappeared.
     for o in oranges.copy():
         if o.rect.y <= 0 or o.rect.x <= 0 or o.rect.y >= settings.screen_height or o.rect.x >= settings.screen_width:
             oranges.remove(o)
+
+def update_harveys(harvey, Dan, settings):
+    # update harvey positions.
+    harvey.update(Dan)
