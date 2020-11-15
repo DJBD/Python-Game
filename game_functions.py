@@ -20,7 +20,6 @@ def check_events(settings, screen, dan, oranges, harveys):
 
 
 def screen_refresh(settings, screen, dan, harveys, oranges):
-
     screen.fill(settings.background_colour)
 
     for orange in oranges.sprites():
@@ -30,12 +29,11 @@ def screen_refresh(settings, screen, dan, harveys, oranges):
         harvey.draw_harvey()
 
     dan.blitme()
-
-
     pygame.display.flip()
 
 
 def check_keydown_events(event, settings, screen, dan, oranges, harveys):
+
     if event.key == pygame.K_RIGHT:
         dan.moving_right = True
     if event.key == pygame.K_LEFT:
@@ -74,6 +72,9 @@ def check_keydown_events(event, settings, screen, dan, oranges, harveys):
         new_harv = Harvey(settings, screen)
         harveys.add(new_harv)
 
+    if event.key == pygame.K_RETURN:
+        settings.game_over = False
+
 
 def check_keyup_events(event, dan):
     if event.key == pygame.K_RIGHT:
@@ -89,12 +90,19 @@ def check_keyup_events(event, dan):
 def update_oranges(oranges, harveys, settings):
     # Update orange positions.
     oranges.update()
-    collisions = pygame.sprite.groupcollide(oranges, harveys, True, True)
+    pygame.sprite.groupcollide(oranges, harveys, True, True)
     # Get rid of oranges that have disappeared.
     for o in oranges.copy():
         if o.rect.y <= 0 or o.rect.x <= 0 or o.rect.y >= settings.screen_height or o.rect.x >= settings.screen_width:
             oranges.remove(o)
 
+
 def update_harveys(harvey, Dan, settings):
     # update harvey positions.
     harvey.update(Dan)
+
+def game_over(harveys, Dan, settings):
+    for harvey in harveys:
+        if (pygame.sprite.collide_rect(Dan, harvey)):
+            settings.game_over = True
+

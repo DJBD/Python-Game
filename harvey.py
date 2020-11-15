@@ -1,4 +1,6 @@
 import random
+import sys
+
 import pygame
 import math
 from pygame.sprite import Sprite
@@ -7,6 +9,7 @@ from pygame.sprite import Sprite
 class Harvey(Sprite):
     def __init__(self, settings, screen):
         super(Harvey, self).__init__()
+
         self.screen = screen
         self.settings = settings
 
@@ -47,3 +50,13 @@ class Harvey(Sprite):
 
         self.rect.centerx = self.x
         self.rect.centery = self.y
+
+
+
+
+
+
+
+
+
+
