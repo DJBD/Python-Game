@@ -28,7 +28,7 @@ class Harvey(Sprite):
         self.speed = settings.harvey_speed
 
     def draw_harvey(self):
-        self.screen.blit(self.image, self.rect)
+        self.screen.blit(self.image, self.rect )
 
     def update(self, dan):
         if not self.distance:
