@@ -22,6 +22,7 @@ def start_game():
     start = True
 
     while start:
+        print(start)
         image = pygame.image.load('images/homescreen.bmp')
         rect = image.get_rect()
         rect.centerx = set_settings.screen_width / 2
@@ -30,6 +31,11 @@ def start_game():
         pygame.display.flip()
         game_functions.check_events(set_settings, screen, dan, oranges, harvs)
 
+        event = pygame.event.wait()
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            start = False
 
     while True:
 
