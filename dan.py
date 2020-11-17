@@ -9,13 +9,15 @@ class Dan(Sprite):
         self.settings = settings
 
         # Load the dan image and get its rect.
-        self.image = pygame.image.load('images/dan.bmp')
+        self.image = pygame.image.load('images/dan2.bmp')
         self.rect = self.image.get_rect()
+        #self.rect.inflate_ip(-30,-30)
         self.screen_rect = screen.get_rect()
 
         # Start each new ship at the bottom center of the screen.
         self.rect.centerx = self.screen_rect.centerx
-        self.rect.bottom = self.screen_rect.bottom
+        self.rect.centery = settings.screen_height/2
+
 
         self.center_x = float(self.rect.centerx)
         self.center_y = float(self.rect.centery)

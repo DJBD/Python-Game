@@ -1,6 +1,6 @@
 import sys
 import pygame
-
+import time
 import settings
 from dan import Dan
 from oranges import Oranges
@@ -105,4 +105,11 @@ def game_over(harveys, Dan, settings):
     for harvey in harveys:
         if (pygame.sprite.collide_rect(Dan, harvey)):
             settings.game_over = True
+
+def send_in_the_harveys( harveys, settings, screen):
+
+    new_harv = Harvey(settings, screen)
+    harveys.add(new_harv)
+
+
 

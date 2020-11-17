@@ -11,10 +11,11 @@ class Settings():
         self.dan_speed = 2
 
         # Orange Settings
-        self.orange_speed = 2
+        self.orange_speed = 3
 
         # Harv Settings
         self.harvey_speed = 1
+        self.harvey_difficulty = 1
 
         # game setings
         self.game_over = False
