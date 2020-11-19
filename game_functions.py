@@ -19,6 +19,10 @@ def check_events(settings, screen, dan, oranges, harveys):
 
 def screen_refresh(settings, screen, dan, harveys, oranges):
     screen.fill(settings.background_colour)
+    font = pygame.font.SysFont(None, 60)
+    RED = (255, 0, 0)
+    img = font.render("SCORE: " + str(settings.score), True, RED)
+    screen.blit(img, (50, 50))
 
     for orange in oranges.sprites():
         orange.draw_orange()
@@ -71,6 +75,7 @@ def check_keydown_events(event, settings, screen, dan, oranges, harveys):
 
     if event.key == pygame.K_RETURN:
         settings.game_over = False
+        settings.score = 0
 
 
 def check_keyup_events(event, dan):
@@ -89,6 +94,7 @@ def update_oranges(oranges, harveys, settings):
     oranges.update()
     if (pygame.sprite.groupcollide(oranges, harveys, True, True)):
         harvey_scream()
+        settings.score += 1
     # Get rid of oranges that have disappeared.
     for o in oranges.copy():
         if o.rect.y <= 0 or o.rect.x <= 0 or o.rect.y >= settings.screen_height or o.rect.x >= settings.screen_width:

@@ -47,9 +47,6 @@ def start_game():
     sendin = 0
     while True:
         clock.tick(500)
-
-
-
         if set_settings.game_over == False:
             game_functions.game_over(harvs, dan, set_settings)
             game_functions.check_events(set_settings, screen, dan, oranges, harvs)
@@ -77,6 +74,10 @@ def start_game():
             rect.centerx = set_settings.screen_width / 2
             rect.centery = set_settings.screen_height / 2
             screen.blit(image, rect)
+            font = pygame.font.SysFont(None, 60)
+            WHITE = (255, 255, 255)
+            img = font.render("SCORE: " + str(set_settings.score), True, WHITE)
+            screen.blit(img, (50, 50))
             pygame.display.flip()
             game_functions.check_events(set_settings, screen, dan, oranges, harvs)
 
