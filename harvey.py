@@ -1,6 +1,4 @@
 import random
-import sys
-
 import pygame
 import math
 from pygame.sprite import Sprite

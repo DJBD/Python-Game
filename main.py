@@ -38,13 +38,17 @@ def start_game():
             pygame.quit()
         elif event.type == pygame.KEYDOWN:
             start = False
+            pygame.mixer.music.load('sounds/music.mp3')
+            pygame.mixer.Channel(0).play(pygame.mixer.Sound('sounds/music.mp3'))
+            pygame.mixer.music.play(-1)
 
     clock = pygame.time.Clock()
 
     sendin = 0
-
     while True:
         clock.tick(500)
+
+
 
         if set_settings.game_over == False:
             game_functions.game_over(harvs, dan, set_settings)

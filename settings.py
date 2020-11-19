@@ -19,3 +19,4 @@ class Settings():
 
         # game setings
         self.game_over = False
+        self.music_channel = 0
