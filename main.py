@@ -1,10 +1,8 @@
 import pygame
 from settings import Settings
 from dan import Dan
-from harvey import Harvey
 import game_functions
 from pygame.sprite import Group
-import time
 
 pygame.init()
 
@@ -13,13 +11,13 @@ def start_game():
     # Initialize game and create a screen object.
     set_settings = Settings()
     screen = pygame.display.set_mode((set_settings.screen_width, set_settings.screen_height))
-    pygame.display.set_caption("Harvey Eats Oranges")
+    pygame.display.set_caption("GAME")
 
     dan = Dan(set_settings, screen)
 
 
 
-    harvs = Group()
+    enes = Group()
     oranges = Group()
 
     start = True
@@ -31,7 +29,7 @@ def start_game():
         rect.centery = set_settings.screen_height / 2
         screen.blit(image, rect)
         pygame.display.flip()
-        game_functions.check_events(set_settings, screen, dan, oranges, harvs)
+        game_functions.check_events(set_settings, screen, dan, oranges, enes)
 
         event = pygame.event.wait()
         if event.type == pygame.QUIT:
@@ -48,26 +46,26 @@ def start_game():
     while True:
         clock.tick(500)
         if set_settings.game_over == False:
-            game_functions.game_over(harvs, dan, set_settings)
-            game_functions.check_events(set_settings, screen, dan, oranges, harvs)
+            game_functions.game_over(enes, dan, set_settings)
+            game_functions.check_events(set_settings, screen, dan, oranges, enes)
             dan.update()
-            if sendin % (int(500/set_settings.harvey_difficulty)) == 0:
-                game_functions.send_in_the_harveys(harvs, set_settings, screen)
+            if sendin % (int(500/set_settings.enemy_difficulty)) == 0:
+                game_functions.send_in_the_enemys(enes, set_settings, screen)
                 if sendin % 2000 == 0:
-                    set_settings.harvey_difficulty += 1
+                    set_settings.enemy_difficulty += 1
                 sendin += 1
             else:
                 sendin += 1
 
-            game_functions.update_harveys(harvs, dan, set_settings)
-            game_functions.update_oranges(oranges, harvs, set_settings)
-            game_functions.screen_refresh(set_settings, screen, dan, harvs, oranges)
+            game_functions.update_enemys(enes, dan, set_settings)
+            game_functions.update_oranges(oranges, enes, set_settings)
+            game_functions.screen_refresh(set_settings, screen, dan, enes, oranges)
 
         else:
             sendin = 0
-            set_settings.harvey_difficulty = 1
-            for harv in harvs:
-                harvs.remove(harv)
+            set_settings.enemy_difficulty = 1
+            for ene in enes:
+                enes.remove(ene)
             screen.fill((255, 000, 000))
             image = pygame.image.load('images/gameover.bmp')
             rect = image.get_rect()
@@ -79,7 +77,7 @@ def start_game():
             img = font.render("SCORE: " + str(set_settings.score), True, WHITE)
             screen.blit(img, (50, 50))
             pygame.display.flip()
-            game_functions.check_events(set_settings, screen, dan, oranges, harvs)
+            game_functions.check_events(set_settings, screen, dan, oranges, enes)
 
 
 start_game()

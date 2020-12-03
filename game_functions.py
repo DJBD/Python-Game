@@ -1,23 +1,24 @@
 import sys
 import pygame
+
+from enemy import Enemy
 from oranges import Oranges
-from harvey import Harvey
 import random
 
 
-def check_events(settings, screen, dan, oranges, harveys):
+def check_events(settings, screen, dan, oranges, enemys):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
 
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, settings, screen, dan, oranges, harveys)
+            check_keydown_events(event, settings, screen, dan, oranges, enemys)
 
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, dan)
 
 
-def screen_refresh(settings, screen, dan, harveys, oranges):
+def screen_refresh(settings, screen, dan, enemys, oranges):
     screen.fill(settings.background_colour)
     font = pygame.font.SysFont(None, 60)
     RED = (255, 0, 0)
@@ -27,14 +28,14 @@ def screen_refresh(settings, screen, dan, harveys, oranges):
     for orange in oranges.sprites():
         orange.draw_orange()
 
-    for harvey in harveys.sprites():
-        harvey.draw_harvey()
+    for enemy in enemys.sprites():
+        enemy.draw_enemy()
 
     dan.blitme()
     pygame.display.flip()
 
 
-def check_keydown_events(event, settings, screen, dan, oranges, harveys):
+def check_keydown_events(event, settings, screen, dan, oranges, enemys):
     if event.key == pygame.K_RIGHT:
         dan.moving_right = True
     if event.key == pygame.K_LEFT:
@@ -68,11 +69,6 @@ def check_keydown_events(event, settings, screen, dan, oranges, harveys):
         new_orange.direction = "RIGHT"
         oranges.add(new_orange)
 
-    if event.key == pygame.K_h:
-        # Create a new Harvey Object
-        new_harv = Harvey(settings, screen)
-        harveys.add(new_harv)
-
     if event.key == pygame.K_RETURN:
         settings.game_over = False
         settings.score = 0
@@ -89,11 +85,11 @@ def check_keyup_events(event, dan):
         dan.moving_down = False
 
 
-def update_oranges(oranges, harveys, settings):
+def update_oranges(oranges, enemys, settings):
     # Update orange positions.
     oranges.update()
-    if (pygame.sprite.groupcollide(oranges, harveys, True, True)):
-        harvey_scream()
+    if (pygame.sprite.groupcollide(oranges, enemys, True, True)):
+        enemy_scream(settings)
         settings.score += 1
     # Get rid of oranges that have disappeared.
     for o in oranges.copy():
@@ -101,24 +97,28 @@ def update_oranges(oranges, harveys, settings):
             oranges.remove(o)
 
 
-def update_harveys(harvey, Dan, settings):
-    # update harvey positions.
-    harvey.update(Dan)
+def update_enemys(enemy, Dan, settings):
+    # update enemy positions.
+    enemy.update(Dan)
 
 
-def game_over(harveys, Dan, settings):
-    for harvey in harveys:
-        if (pygame.sprite.collide_rect(Dan, harvey)):
+def game_over(enemys, Dan, settings):
+    for enemy in enemys:
+        if (pygame.sprite.collide_rect(Dan, enemy)):
             settings.game_over = True
 
 
-def send_in_the_harveys(harveys, settings, screen):
-    new_harv = Harvey(settings, screen)
-    harveys.add(new_harv)
+def send_in_the_enemys(enemys, settings, screen):
+    new_harv = Enemy(settings, screen)
+    enemys.add(new_harv)
 
 
-def harvey_scream():
+def enemy_scream(settings):
     scream = {
+
+        # HARVEY NOISE
+        1: {
+        # enemy
         1: pygame.mixer.Sound('sounds/gee.mp3'),
         2: pygame.mixer.Sound('sounds/bolognesey.mp3'),
         3: pygame.mixer.Sound('sounds/gurluckla.mp3'),
@@ -126,6 +126,19 @@ def harvey_scream():
         5: pygame.mixer.Sound('sounds/ooo.mp3'),
         6: pygame.mixer.Sound('sounds/solonely.mp3'),
         7: pygame.mixer.Sound('sounds/urghh.mp3')
+        },
+
+        # WILL NOISE
+        2:{
+
+        1: pygame.mixer.Sound('sounds/willwhat.mp3'),
+        2: pygame.mixer.Sound('sounds/willbecky.mp3'),
+        3: pygame.mixer.Sound('sounds/willspurs.mp3'),
+        4: pygame.mixer.Sound('sounds/thatsfacts.mp3'),
+        5: pygame.mixer.Sound('sounds/fire.mp3'),
+        6: pygame.mixer.Sound('sounds/yournotwill.mp3'),
+        7: pygame.mixer.Sound('sounds/notabite.mp3')
+        }
     }
     rand = random.randint(1, 7)
-    pygame.mixer.Channel(rand).play(scream.get(rand))
+    pygame.mixer.Channel(rand).play(scream[settings.enemy].get(rand))

@@ -4,14 +4,14 @@ import math
 from pygame.sprite import Sprite
 
 
-class Harvey(Sprite):
+class Enemy(Sprite):
     def __init__(self, settings, screen):
-        super(Harvey, self).__init__()
+        super(Enemy, self).__init__()
 
         self.screen = screen
         self.settings = settings
 
-        self.image = pygame.image.load('images/harvey.bmp')
+        self.image = self.select_enemy(settings)
         self.rect = self.image.get_rect()
         #self.rect.inflate_ip(-20, -20)
 
@@ -24,9 +24,9 @@ class Harvey(Sprite):
         self.pmx, self.pmy = self.x, self.y
         self.dx, self.dy = 0, 0
         self.distance = 0
-        self.speed = settings.harvey_speed
+        self.speed = settings.enemy_speed
 
-    def draw_harvey(self):
+    def draw_enemy(self):
         self.screen.blit(self.image, self.rect )
 
     def update(self, dan):
@@ -49,6 +49,16 @@ class Harvey(Sprite):
 
         self.rect.centerx = self.x
         self.rect.centery = self.y
+
+    def select_enemy(self, settings):
+
+        person = {
+            1: pygame.image.load('images/harvey.bmp'),
+            2: pygame.image.load('images/will.bmp')
+        }
+
+        return person[settings.enemy]
+
 
 
 

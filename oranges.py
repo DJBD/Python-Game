@@ -8,7 +8,8 @@ class Oranges(Sprite):
         """Create an orange object at the ship's current position."""
 
         # Load the orange image and get its rect.
-        self.image = pygame.image.load('images/orange.bmp')
+
+        self.image = self.select_bullet(settings)
         self.rect = self.image.get_rect()
 
         super(Oranges, self).__init__()
@@ -55,5 +56,13 @@ class Oranges(Sprite):
         # Update the rect position.
         self.rect.x = self.x
 
+    def select_bullet(self, settings):
+
+        bullets = {
+            1: pygame.image.load('images/orange.bmp'),
+            2: pygame.image.load('images/football.bmp')
+        }
+
+        return bullets[settings.enemy]
 
 
